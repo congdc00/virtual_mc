@@ -1,4 +1,9 @@
 import gradio as gr
+def change_check_box(type_function):
+    if type_function == "Face Swapper":
+        return gr.update(visible=True, interactive=True)
+    else:
+        return gr.update(visible=False)
 def init_ui():
     type_function = gr.Dropdown(["Enhancer", "Face Swapper"], label="Lựa chọn chức năng muốn sử dụng")
     with gr.Column():
