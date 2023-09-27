@@ -23,6 +23,10 @@ def init_ui():
         with gr.Column():
             gr.Image(label="Example", interactive=False)
             gr.Button("Example")
+        
+    with gr.Accordion("Advance setting", open=False):
+        model = gr.Dropdown(["Model 01", "Model 02"], value="Model 01", label="Model", info="Select the model to use", interactive=True)
+        model = gr.Dropdown(["Checkpoint 01", "Checkpoint 02"], value="Checkpoint 01", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
+    
     image_button = gr.Button("Generater")
-
     gr.Video(label="Result", interactive=False)
