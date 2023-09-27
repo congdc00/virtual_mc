@@ -1,4 +1,5 @@
 import gradio as gr
+from make_video.processing import run
 
 def change_source(choice):
     if choice=="Upload":
@@ -15,8 +16,8 @@ def change_config(choice):
 def init_ui():
     type_source = gr.Radio(["Pre step", "Upload"],label="Source", info="Select source")
     with gr.Row():
-        video_input = gr.Video(label="Video Input", visible=False)
-        audio_input = gr.Audio(label="Speech Input", visible=False)
+        video_input = gr.Video(label="Video Input", visible=False, width=360, height=360)
+        audio_input = gr.Audio(label="Speech Input", visible=False, type="filepath")
 
     with gr.Accordion("Setting", open=False):
         with gr.Row():
@@ -31,10 +32,11 @@ def init_ui():
         config.change(fn=change_config, inputs=config, outputs=[title_pad, x_top, y_top, x_bot, y_bot])
 
     with gr.Accordion("Advance setting", open=False):
-        model = gr.Dropdown(["Model 01", "Model 02"], value="Model 01", label="Model", info="Select the model to use", interactive=True)
-        model = gr.Dropdown(["Checkpoint 01", "Checkpoint 02"], value="Checkpoint 01", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
+        model = gr.Dropdown(["Rudrabha", "Model 02"], value="Rudrabha", label="Model", info="Select the model to use", interactive=True)
+        checkpoint = gr.Dropdown(["Wav2Lip", "Wav2Lip+GAN", "Expert Discriminator", "Visual Quality Discriminator"], value="Wav2Lip", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
 
     type_source.change(fn=change_source, inputs=type_source, outputs=[video_input, audio_input])
-    convert_button = gr.Button("Generate")
+    button = gr.Button("Generate")
+    result = gr.Video(interactive=False)
+    button.click(run, inputs=[video_input, audio_input], outputs=[result])
     
-    audio_output = gr.Video(interactive=False)

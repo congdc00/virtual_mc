@@ -18,7 +18,7 @@ def init_ui():
     with gr.Row():
         gender = gr.Radio(["Male", "Female"], label="Gender", info="Select gender")
         speaker_male = gr.Dropdown(["Male 01", "Male 02"], value="Male 01", label="Speaker", info="Select the speaker to use", visible=False)
-        speaker_female = gr.Dropdown(["Female 01", "Female 02"], value="Fenale 01", label="Speaker", info="Select the speaker to use", visible=False)
+        speaker_female = gr.Dropdown(["Female 01", "Female 02"], value="Female 01", label="Speaker", info="Select the speaker to use", visible=False)
 
     with gr.Accordion("Setting", open=False):
         gr.Textbox(lines=10, label="Promt")
