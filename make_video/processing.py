@@ -1,6 +1,6 @@
 import os
 
-def run(video_path, audio_path):
-    print(video_path)
-    print(audio_path)
+def process(checkpoint, video_path, audio_path):
+    command = f"docker exec wav2lip_01 bash run.sh {checkpoint} {video_path} {audio_path}"
+    os.system(command)
     return video_path

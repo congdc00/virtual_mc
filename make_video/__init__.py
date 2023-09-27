@@ -1,5 +1,5 @@
 import gradio as gr
-from make_video.processing import run
+from make_video.processing import process
 
 def change_source(choice):
     if choice=="Upload":
@@ -38,5 +38,5 @@ def init_ui():
     type_source.change(fn=change_source, inputs=type_source, outputs=[video_input, audio_input])
     button = gr.Button("Generate")
     result = gr.Video(interactive=False)
-    button.click(run, inputs=[video_input, audio_input], outputs=[result])
+    button.click(process, inputs=[checkpoint, video_input, audio_input], outputs=[result])
     
