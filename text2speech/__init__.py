@@ -27,7 +27,7 @@ def init_ui():
 
     with gr.Accordion("Advance setting", open=False):
         model = gr.Dropdown(["Model 01", "Model 02"], value="Model 01", label="Model", info="Select the model to use", interactive=True)
-        model = gr.Dropdown(["Checkpoint 01", "Checkpoint 02"], value="Checkpoint 01", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
+        checkpoint = gr.Dropdown(["Checkpoint 01", "Checkpoint 02"], value="Checkpoint 01", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
     gender.change(fn=change_speaker_male, inputs=gender, outputs=speaker_male)
     gender.change(fn=change_speaker_female, inputs=gender, outputs=speaker_female)
     convert_button = gr.Button("Generate")

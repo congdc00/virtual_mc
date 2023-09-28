@@ -15,7 +15,7 @@ def init_ui():
     type_source_pose.change(fn=change_source_pose, inputs=type_source_pose, outputs=[source_pose_video, source_pose_audio])
     with gr.Row():
         with gr.Tab(label="Promt"):
-            gr.Checkbox(label="Enable")
+            gr.Checkbox(label="Enable", value=True)
             gr.Textbox(label="Promt")
         with gr.Tab(label="Image"):
             gr.Checkbox(label="Enable")
@@ -25,8 +25,8 @@ def init_ui():
             gr.Button("Example")
         
     with gr.Accordion("Advance setting", open=False):
-        model = gr.Dropdown(["Model 01", "Model 02"], value="Model 01", label="Model", info="Select the model to use", interactive=True)
-        model = gr.Dropdown(["Checkpoint 01", "Checkpoint 02"], value="Checkpoint 01", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
+        model = gr.Dropdown(["Latent Diffusion", "Stabel diffusion 1.0", "Stable diffusion 2.0", "Diffusers"], value="Stable diffusion 2.0", label="Model", info="Select the model to use", interactive=True)
+        checkpoint = gr.Dropdown(["Checkpoint 01", "Checkpoint 02"], value="Checkpoint 01", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
     
-    image_button = gr.Button("Generater")
+    btn_generater = gr.Button("Generater")
     gr.Video(label="Result", interactive=False)
