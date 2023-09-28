@@ -36,7 +36,8 @@ def init_ui():
         checkpoint = gr.Dropdown(["Wav2Lip", "Wav2Lip+GAN", "Expert Discriminator", "Visual Quality Discriminator"], value="Wav2Lip", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
 
     type_source.change(fn=change_source, inputs=type_source, outputs=[video_input, audio_input])
-    button = gr.Button("Generate")
-    result = gr.Video(interactive=False)
+    with gr.Row():
+        button = gr.Button("Generate")
+        result = gr.Video(interactive=False, width=360, height=360)
     button.click(process, inputs=[checkpoint, video_input, audio_input], outputs=[result])
     

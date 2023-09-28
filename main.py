@@ -8,9 +8,7 @@ import data_processing, text2speech, make_video, create_mc, extras
 
 
 with gr.Blocks() as demo:
-
     gr.Markdown("<center><h1> Virtual MC </h1></center>")
-
     with gr.Tab("Data Processing"):
         data_processing.init_ui()
 
