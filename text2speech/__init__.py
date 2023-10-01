@@ -12,6 +12,12 @@ def change_speaker_male(gender):
         return gr.update(visible=False)
 
 def init_ui():
+    gr.Markdown("<h1 align='center'> Part 1: Create Sound for MC </h1>")
+    with gr.Accordion("Tutorials", open=False):
+        gr.Markdown("Step 1: Enter the text you want to convert.")
+        gr.Markdown("Step 2: Select MC (Gender -> Choose appropriate MC).")
+        gr.Markdown("Step 3: Press the 'Generate' button and wait for the result.")
+
     text_input = gr.Textbox(label="Text")
     language = gr.Dropdown(["Auto detect", "Vietnamese", "English"],label="Language", value = "Auto detect", info = "Select the language to use", interactive=True)
 

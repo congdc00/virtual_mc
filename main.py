@@ -18,7 +18,6 @@ with gr.Blocks() as demo:
     with gr.Tab("Make Video"):
         make_video.init_ui()
         
-    with gr.Accordion("Hướng dẫn"):
-        gr.Markdown("Bước 1: ...")
+    
 
-demo.launch()
+demo.launch(share=False)

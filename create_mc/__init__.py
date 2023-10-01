@@ -7,10 +7,15 @@ def change_source_pose(choice):
         return gr.update(visible=False), gr.update(visible=True, interactive=True)
 
 def init_ui():
+    gr.Markdown("<h1 align='center'> Part 2: Create MC </h1>")
+    with gr.Accordion("Tutorials", open=False):
+        gr.Markdown("Step 1: Upload the data containing MC's poses.")
+        gr.Markdown("Step 2: (Optional) Enter a prompt or an image for the desired output -> Press enable")
+        gr.Markdown("Step 3: Press the 'Generate' button and wait for the result.")
 
     type_source_pose = gr.Dropdown(["Video", "Speech"], value="Video", label="Source pose", info="Select the source pose to use", interactive=True)
     source_pose_video = gr.Video(label="Input video", visible=False)
-    source_pose_audio = gr.Audio(label="Input Audio", visible=False)
+    source_pose_audio = gr.Audio(label="Input Audio", visible=False, type="filepath")
 
     type_source_pose.change(fn=change_source_pose, inputs=type_source_pose, outputs=[source_pose_video, source_pose_audio])
     with gr.Row():
@@ -19,9 +24,9 @@ def init_ui():
             gr.Textbox(label="Promt")
         with gr.Tab(label="Image"):
             gr.Checkbox(label="Enable")
-            gr.Image(label="Input Image")
+            gr.Image(label="Input Image", type="filepath")
         with gr.Column():
-            gr.Image(label="Example", interactive=False)
+            gr.Image(label="Example", interactive=False, type="filepath")
             gr.Button("Example")
         
     with gr.Accordion("Advance setting", open=False):
