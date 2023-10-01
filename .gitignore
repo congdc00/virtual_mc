@@ -2,3 +2,4 @@
 __pycache__/
 data
 facefusion-docker/
+gradio_cached_examples/
