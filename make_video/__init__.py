@@ -15,10 +15,10 @@ def change_config(choice):
 
 def init_ui():
     gr.Markdown("<h1 align='center'> Part 3: Aggregate results from speech and MC pose </h1>")
-    with gr.Accordion("Tutorials", open=False):
-        gr.Markdown("Step 1: Upload your data source (You can select Pre-step if you want to use the results from parts 1 and 2).")
-        gr.Markdown("Step 2: Choose suitable configurations in the settings section.")
-        gr.Markdown("Step 3: Press the 'Generate' button and wait for the result (Estimated time: 4 minutes).")
+    with gr.Accordion("Hướng dẫn", open=True):
+        gr.Markdown("Bước 1: Tải lên dữ liệu video và image mà bạn muốn sử dụng (Có thể chọn Pre-step nếu bạn muốn sử dụng kết quả ở Part I & II)")
+        gr.Markdown("Bước 2: Tùy chỉnh cấu hình theo nhu cầu của bạn")
+        gr.Markdown("Bước 3: Nhấn nút generater và chờ đợi kết quả")
 
     type_source = gr.Radio(["Pre step", "Upload"],value="Upload", label="Source", info="Select source")
     with gr.Row():
@@ -29,8 +29,8 @@ def init_ui():
         with gr.Row():
             config = gr.Checkbox(label="Pads", value=False)
             smooth = gr.Checkbox(label="Smooth", value=True, interactive=True)
-            face_enhancer = gr.Checkbox(label="Face Enhance", value=True, interactive=True)
-            frame_enhancer = gr.Checkbox(label="Frame Enhance", value=True, interactive=True)
+            face_enhancer = gr.Checkbox(label="Face Enhance", value=False, interactive=True)
+            frame_enhancer = gr.Checkbox(label="Frame Enhance", value=False, interactive=True)
         with gr.Row():
             title_pad = gr.Markdown("Pads setting", visible=False)
             x_top = gr.Number(label="X_top", visible=False)
@@ -46,7 +46,7 @@ def init_ui():
     type_source.change(fn=change_source, inputs=type_source, outputs=[video_input, audio_input])
     button = gr.Button("Generate")
     with gr.Row():
-        result = gr.Video(interactive=False, width=360, height=720)
+        result = gr.Video(label="AVideo Result",interactive=False, width=360, height=720)
         video_example = gr.Video(label="AiClip Example", width=360, height=720)
     button.click(wav2lip, inputs=[checkpoint, video_input, audio_input, smooth, config, x_top, y_top, x_bot, y_bot, face_enhancer, frame_enhancer], outputs=[result])
     with gr.Row():
@@ -56,7 +56,7 @@ def init_ui():
             [checkpoint, video_input, audio_input, video_example],
             result,
             wav2lip,
-            cache_examples=True,
+            cache_examples=False,
         )
     
 

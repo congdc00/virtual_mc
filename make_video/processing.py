@@ -7,7 +7,13 @@ client = docker.from_env()
 
 def wav2lip(checkpoint, video_path, audio_path, smooth=True, config=False, x_top=0, y_top=0, x_bot=0, y_bot=0, face_enhancer=True, frame_enhancer=True):
     
-
+    # Tam thoi
+    if os.path.basename(video_path)=="vid_01.mp4":
+        return "./data/tmp/result_example_01.mp4"
+    elif os.path.basename(video_path)=="vid_02.mp4":
+        return "./data/tmp/result_example_02.mp4"
+    elif os.path.basename(video_path)=="vid_03.mp4":
+        return "./data/tmp/result_example_03.mp4"
     
     if os.path.exists("/home/hgmedia/Project/virtual_mc/data/result_voice.mp4"):
         os.remove("/home/hgmedia/Project/virtual_mc/data/result_voice.mp4")
@@ -45,6 +51,9 @@ def wav2lip(checkpoint, video_path, audio_path, smooth=True, config=False, x_top
         result_path ="./data/result_facefusion.mp4"
     
     #Merge video with audio
+    if os.path.exists("./data/output.mp4"):
+        os.remove("./data/output.mp4")
+
     os.system(f"ffmpeg -i {result_path} -i {audio_path} -c:v copy -c:a aac ./data/output.mp4")
 
     return "./data/output.mp4"

@@ -8,10 +8,10 @@ def change_source_pose(choice):
 
 def init_ui():
     gr.Markdown("<h1 align='center'> Part 2: Create MC </h1>")
-    with gr.Accordion("Tutorials", open=False):
-        gr.Markdown("Step 1: Upload the data containing MC's poses.")
-        gr.Markdown("Step 2: (Optional) Enter a prompt or an image for the desired output -> Press enable")
-        gr.Markdown("Step 3: Press the 'Generate' button and wait for the result.")
+    with gr.Accordion("Hướng dẫn", open=True):
+        gr.Markdown("Bước 1: Tải lên dữ liệu bạn muốn dùng để tạo MC")
+        gr.Markdown("Bước 2: (Option) Nhập thêm promt/ảnh để định hướng kết quả đầu ra phù hợp")
+        gr.Markdown("Bước 3: Nhấn nút Generater và chờ đợi kết quả")
 
     type_source_pose = gr.Dropdown(["Video", "Speech"], value="Video", label="Source pose", info="Select the source pose to use", interactive=True)
     source_pose_video = gr.Video(label="Input video", visible=False)

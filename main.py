@@ -1,16 +1,19 @@
 import numpy as np
 import gradio as gr
-import text2speech, make_video, create_mc, extras
+import create_speech, make_video, create_mc, extras
 
 
 
 with gr.Blocks() as demo:
     gr.Markdown("<center><h1> Virtual MC </h1></center>")
+    with gr.Tab("Tutoria"):
+        pass
+
     with gr.Tab("Extras"):
         extras.init_ui()
 
     with gr.Tab("Create speech"):
-        text2speech.init_ui()
+        create_speech.init_ui()
 
     with gr.Tab("Create MC"):
         create_mc.init_ui()

@@ -43,10 +43,11 @@ def change_input(choice):
         return gr.update(visible=False), gr.update(visible=True, interactive=True)
 def init_ui():
     gr.Markdown("<h1 align='center'> Video Editing Auxiliary Tools </h1>")
-    with gr.Accordion("Tutorials", open=False):
-        gr.Markdown("Step 1: Upload the video you want to edit.")
-        gr.Markdown("Step 2: Use Video Editing Auxiliary Tools.")
-        gr.Markdown("Step 3: Click the 'Convert' button and wait for the result.")
+    with gr.Accordion("Hướng dẫn", open=True):
+        gr.Markdown("Bước 1: Nhấn vào video input và chọn video mà bạn muốn chỉnh sửa")
+        gr.Markdown("Bước 2: Chọn loại chức năng mà bạn muốn sử dụng")
+        gr.Markdown("Bước 3: (Option) Tùy chỉnh cấu hình cho phù hợp với nhu cầu")
+        gr.Markdown("Bước 4: Nhấn nút Convert và chờ đợi kết quả")
 
     video_path = gr.Video(label="Video input", height=360)
     type_function = gr.Dropdown(["Change background", "Enhancer", "Swapper", "Interpolate Video"], label="Choose the function you want to use.")
