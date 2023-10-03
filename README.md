@@ -1,9 +1,12 @@
 # virtual_mc
 
+# Chuẩn bị môi trường
+```python install.py```
+
+
 # Hướng dẫn
-
-## Bước 1: Tải các file docker image
-
-## Bước 2: Chạy
-```bash start.sh```
+## Bước 1: Khởi động WebUI
+```cd ./ui```
 ```gradio main.sh```
+
+## Bước 2: Khởi động API
