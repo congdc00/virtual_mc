@@ -1,0 +1,48 @@
+version: '3'
+services:
+  wav2lip:
+    image: wav2lip
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - "5001:5001"
+    cpus: "1"
+    mem_limit: 12g
+    volumes:
+      - /tmp/gradio:/tmp/gradio
+      - ./ui/data:/home/data
+      - API_DISK:/api_disk/
+      - ./api/disk/checkpoints/facedetection/s3fd.pth:/home/Wav2Lip/face_detection/detection/s3fd.pth
+
+  swapper_face:
+    image: facefusion
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - "5002:5002"
+    cpus: "8"
+    mem_limit: 4g
+    volumes:
+      - /tmp/gradio:/tmp/gradio
+      - ./ui/data:/home/data
+      - API_DISK:/api_disk/
+      - ./api/disk/checkpoints/gfpgan/:/facefusion/gfpgan/weights/
+
+  enhancer_esr:
+    image: real-esrgan
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - "5003:5003"
+    volumes:
+      - /tmp/gradio:/tmp/gradio
+      - ./ui/data:/home/data
+      - API_DISK:/api_disk/
+      - ./api/disk/checkpoints/gfpgan/:/Real-ESRGAN/gfpgan/weights/
+      - ./api/disk/checkpoints/real_esrgan/:/Real-ESRGAN/weights/
+
+volumes:
+  API_DISK:

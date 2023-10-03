@@ -27,9 +27,8 @@ def enhancer(video_path, scale):
     container = client.containers.get('enhancer_esr')
     for image_path in files:
         input_path = image_path.replace("./data", "/home/data")
-        print(input_path)
         command = f"bash run.sh RealESRGAN_x4plus {input_path} /home/data/frame_enhancer {scale}"
-        
+        print(command)
         container.exec_run(command)
     
     logger.info(f"Merge frame")
