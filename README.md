@@ -4,6 +4,7 @@
 - python>=3.11
 
 # Chuẩn bị môi trường
+```pip install -r requirements.txt```
 ```python install.py```
 
 # Hướng dẫn
@@ -14,5 +15,4 @@
 
 ## Bước 2: Khởi động API
 (from /visual_mc)  
-```cd ./api```  
-```docker-compose up -d```  
+```docker-compose -f ./api/docker-compose.yml up```  

@@ -1,0 +1,66 @@
+version: '3'
+services:
+  wav2lip:
+    tty: true
+    image: wav2lip
+    container_name: api_wav2lip
+    ports:
+      - "5001:5001"
+    cpus: "1"
+    mem_limit: 12g
+    volumes:
+      - /tmp/gradio:/tmp/gradio
+      - ../ui/data:/home/data
+      - API_DISK:/api_disk
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  swapper_face:
+    tty: true
+    image: facefusion
+    container_name: api_facefusion
+    ports:
+      - "5002:5002"
+    volumes:
+      - /tmp/gradio:/tmp/gradio
+      - ../ui/data:/home/data
+      - API_DISK:/api_disk/
+      - ./disk/checkpoints/gfpgan/:/facefusion/gfpgan/weights/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  enhancer_esr:
+    tty: true
+    image: real-esrgan
+    container_name: api_real_esrgan
+    ports:
+      - "5003:5003"
+    volumes:
+      - /tmp/gradio:/tmp/gradio
+      - ../ui/data:/home/data
+      - API_DISK:/api_disk/
+      - ./disk/checkpoints/gfpgan/:/Real-ESRGAN/gfpgan/weights/
+      - ./disk/checkpoints/real_esrgan/:/Real-ESRGAN/weights/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+volumes:
+  API_DISK:
+    driver_opts:
+      type: none
+      device: ./disk/
+      o: bind
+    name: API_DISK

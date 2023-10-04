@@ -1,1 +1,3 @@
 FROM congdchg/wav2lip:latest
+VOLUME ["/api_disk"]
+ADD ./api/disk/checkpoints/facedetection/s3fd.pth /home/Wav2Lip/face_detection/detection/s3fd.pth

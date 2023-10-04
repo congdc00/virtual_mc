@@ -1,1 +1,3 @@
 FROM congdchg/real-esrgan:latest
+VOLUME ["/api_disk"]
+ADD ./api/disk/checkpoints/gfpgan/parsing_parsenet.pth /Real-ESRGAN/weights/

@@ -18,7 +18,7 @@ def wav2lip(checkpoint, video_path, audio_path, smooth=True, config=False, x_top
     if os.path.exists("/home/hgmedia/Project/virtual_mc/data/result_voice.mp4"):
         os.remove("/home/hgmedia/Project/virtual_mc/data/result_voice.mp4")
     
-    container = client.containers.get('wav2lip_01')
+    container = client.containers.get('api_wav2lip')
     command = f'bash run.sh {checkpoint.lower()} {video_path} {audio_path}'
     #Add params
     if not smooth:
@@ -40,7 +40,7 @@ def wav2lip(checkpoint, video_path, audio_path, smooth=True, config=False, x_top
         else:
             command_add+=" frame_enhancer"
     if command_add!="":
-        container = client.containers.get('swapper_face')
+        container = client.containers.get('api_facefusion')
         input_video = "/home/data/result_voice.mp4"
         target="/home/data/example/extras/swap/target.jpg"
         output = "/home/data/result_facefusion.mp4"
