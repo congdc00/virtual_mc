@@ -6,8 +6,6 @@ services:
     container_name: api_wav2lip
     ports:
       - "5001:5001"
-    cpus: "1"
-    mem_limit: 12g
     volumes:
       - /tmp/gradio:/tmp/gradio
       - ../ui/data:/home/data

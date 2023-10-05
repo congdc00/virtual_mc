@@ -20,7 +20,7 @@ def init_ui():
         gr.Markdown("Bước 2: Tùy chỉnh cấu hình theo nhu cầu của bạn")
         gr.Markdown("Bước 3: Nhấn nút generater và chờ đợi kết quả")
 
-    type_source = gr.Radio(["Pre step", "Upload"],value="Upload", label="Source", info="Select source")
+    type_source = gr.Radio(["Pre step", "Upload"],value="Upload", label="Source", info="Select source", interactive=False)
     with gr.Row():
         video_input = gr.Video(label="Video Input", visible=True, width=360, height=360)
         audio_input = gr.Audio(label="Speech Input", visible=True, type="filepath")

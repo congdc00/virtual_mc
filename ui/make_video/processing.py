@@ -7,14 +7,6 @@ client = docker.from_env()
 
 def wav2lip(checkpoint, video_path, audio_path, smooth=True, config=False, x_top=0, y_top=0, x_bot=0, y_bot=0, face_enhancer=True, frame_enhancer=True):
     
-    # Tam thoi
-    if os.path.basename(video_path)=="vid_01.mp4":
-        return "./data/tmp/result_example_01.mp4"
-    elif os.path.basename(video_path)=="vid_02.mp4":
-        return "./data/tmp/result_example_02.mp4"
-    elif os.path.basename(video_path)=="vid_03.mp4":
-        return "./data/tmp/result_example_03.mp4"
-    
     if os.path.exists("/home/hgmedia/Project/virtual_mc/data/result_voice.mp4"):
         os.remove("/home/hgmedia/Project/virtual_mc/data/result_voice.mp4")
     

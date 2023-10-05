@@ -3,8 +3,11 @@
 # Yêu cầu
 - python>=3.11
 
+
+# Chuẩn bị dữ liệu (example)
+
 # Chuẩn bị môi trường
-```pip install -r requirements.txt```
+```pip install -r requirements.txt```  
 ```python install.py```
 
 # Hướng dẫn

@@ -53,7 +53,7 @@ def init_ui():
     type_function = gr.Dropdown(["Change background", "Enhancer", "Swapper", "Interpolate Video"], label="Choose the function you want to use.")
 
     with gr.Column(visible=False) as row_bg:
-        type_source = gr.Radio(["Transparent", "Upload"], value="Transparent", label="Type background", info="Select the background you want", interactive=True)
+        type_source = gr.Radio(["Transparent", "Upload"], value="Transparent", label="Type background", info="Select the background you want", interactive=False)
         with gr.Row(visible=False) as row_upload:
             type_upload = gr.Radio(["Video", "Image"], value="Video", label="Type source", info="Select the input you want", interactive=True)
             video_input = gr.Video(visible=True, interactive=True, width=360, height=360)
@@ -87,7 +87,7 @@ def init_ui():
         video_output = gr.Video(label="Result",interactive=False, height=360)
         btn.click(swap, inputs=[choice_01, video_path, image_01, speech_01, choice_02], outputs=[video_output])
         gr.Examples(
-            [[["Face", "Lip"],"./data/example/extras/swap/vid_01.mp4", "./data/example/extras/swap/target_face_01.png", "./data/example/extras/swap/audio_02.mp3", True], [["Face"],"./data/example/extras/swap/vid_02.mp4", "./data/example/extras/swap/target_face_02.png", "./data/example/extras/swap/audio_02.mp3", True], [["Lip"],"./data/example/extras/swap/vid_03.mp4", "./data/example/extras/swap/target_face_03.png", "./data/example/extras/swap/audio_02.mp3", True]],
+            [[["Face", "Lip"],"./data/example/extras/swap/vid_01.mp4", "./data/example/extras/swap/target_face_01.png", "./data/example/extras/swap/audio_02.mp3", False], [["Face"],"./data/example/extras/swap/vid_02.mp4", "./data/example/extras/swap/target_face_02.png", "./data/example/extras/swap/audio_02.mp3", False], [["Lip"],"./data/example/extras/swap/vid_03.mp4", "./data/example/extras/swap/target_face_03.png", "./data/example/extras/swap/audio_02.mp3", False]],
             [choice_01, video_path, image_01, speech_01, choice_02],
             video_output,
             swap,
@@ -96,7 +96,7 @@ def init_ui():
 
     with gr.Column(visible=False) as row_enhancer:
         resize = gr.Checkbox(label="Enable Resize")
-        type_resize = gr.Radio(["Scale", "Coordinate"], value="Scale", label="Type resize", interactive=True)
+        type_resize = gr.Radio(["Scale", "Coordinate"], value="Scale", label="Type resize", interactive=False)
 
         scale = gr.Slider(0.1, 10, value=1, label="Scale", info="Choose between 0.1 and 10", visible=True, interactive=True)
         with gr.Row(visible=False) as coordinate:
