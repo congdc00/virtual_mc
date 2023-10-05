@@ -35,11 +35,11 @@ def swap(list_choice, video_path, image_path, audio_path, enhancer):
         container = client.containers.get('api_facefusion')
         input_video = "/home/data/result_voice.mp4"
         output = "/home/data/result_voice.mov"
-        command = f"bash run.sh {input_video} {image_path} {output} 'frame_enhancer face_enhancer'"
+        command = f"bash run.sh {input_video} {image_path} {output} 'face_enhancer'"
 
         logger.info(f"Running Enhancer {command}") 
         container.exec_run(command)
         logger.success("Process done!")
-        result_path ="./data/result_voice.mov"
+        result_path ="./data/result_voice.mp4"
 
     return result_path
