@@ -5,7 +5,7 @@ from huggingface_hub import hf_hub_download
 import tqdm
 API_DISK_PATH = f"{os.getcwd()}/api/disk"
 CHECKPOINT_PATH = f"{API_DISK_PATH}/checkpoints"
-LIST_MODEL = ["facefusion","facedetection", "gfpgan", "real_esrgan", "wav2lip"] #"lipsync"
+LIST_MODEL = ["facefusion","facedetection", "gfpgan", "real_esrgan", "wav2lip", "DiffBIR"]
 
 DATA_PATH = f"{os.getcwd()}/ui/data"
 def make_direction(path):
@@ -14,15 +14,18 @@ def make_direction(path):
         return True
     else:
         return False
-def update_model(model, filename):
+def update_model(model, filename, username="Cong-HGMedia"):
     dst_path = f"{CHECKPOINT_PATH}/{model}"
     model_path = f"{dst_path}/{filename}"
     if os.path.exists(model_path):
         logger.success(f"{filename} OK!") 
     else:
-        file_path =f"{CHECKPOINT_PATH}/{model}"
-        hf_hub_download(repo_id=f"Cong-HGMedia/{model}", local_dir=file_path, filename=filename, local_dir_use_symlinks=False)
-        logger.info(f"Add {filename}") 
+        try:
+            file_path =f"{CHECKPOINT_PATH}/{model}"
+            hf_hub_download(repo_id=f"{username}/{model}", local_dir=file_path, filename=filename, local_dir_use_symlinks=False)
+            logger.success(f"Download {filename} done") 
+        except:
+            logger.error(f"Download {filename} failed !")
 
 def download_model(list_model):
     for model in list_model:
@@ -42,10 +45,12 @@ def download_model(list_model):
             update_model(model, "visual_quality_disc.pth")
             update_model(model, "wav2lip_gan.pth")
             update_model(model, "wav2lip.pth")
-        elif model=="lipsync":
-            os.mkdir(f"{CHECKPOINT_PATH}/lipsync")
-            os.system(f"gdown --id 1lW4mf5YNtS4MAD7ZkAauDDWp2N3_Qzs7 -O {CHECKPOINT_PATH}/lipsync/checkpoints.tar.gz")
-
+        elif model=="DiffBIR":
+            author = "lxq007"
+            update_model(model, "face_full_v1.ckpt", username=author)
+            update_model(model, "face_swinir_v1.ckpt", username=author)
+            update_model(model, "general_full_v1.ckpt", username=author)
+            update_model(model, "general_swinir_v1.ckpt", username=author)
 if __name__=="__main__":
 
     os.system(f"sudo chmod 777 /tmp/gradio")

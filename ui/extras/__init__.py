@@ -2,6 +2,13 @@ import gradio as gr
 from extras.rmbg import remove_bg
 from extras.swapper import swap
 from extras.enhancer import enhancer
+
+def change_model(choice):
+    if choice=="Real-ESRGAN":
+        return gr.update(visible=True, interactive=True), gr.update(visible=False)
+    elif choice=="DiffBIR":
+        return gr.update(visible=False), gr.update(visible=True, interactive=True)
+
 def change_fc(choice):
     if choice=="Swapper":
         return gr.update(visible=False),gr.update(visible=False), gr.update(visible=True)
@@ -106,8 +113,10 @@ def init_ui():
             y_bot = gr.Number(label="Y_bot")
         type_resize.change(fn=change_resize, inputs=type_resize, outputs=[scale, coordinate])
         with gr.Accordion("Advance setting", open=False):
-            model = gr.Dropdown(["Real-ESRGAN", "GFP-Gan", "DiffBIR"], value="Real-ESRGAN", label="Model", info="Select the model to use", interactive=True)
-            checkpoint = gr.Dropdown(["RealESRGAN_x4plus", "RealESRGAN_x4plus-anime"], value="RealESRGAN_x4plus", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
+            model = gr.Dropdown(["Real-ESRGAN", "DiffBIR"], value="Real-ESRGAN", label="Model", info="Select the model to use", interactive=True)
+            checkpoint_realesrgan = gr.Dropdown(["RealESRGAN_x4plus", "RealESRGAN_x4plus-anime"], value="RealESRGAN_x4plus", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
+            checkpoints_diffbur = gr.Dropdown(["face_full_v1", "face_swinir_v1", "general_full_v1", "general_swinir_v1"], value="general_full_v1", label="Checkpoint", info="Select the checkpoint to use", interactive=True, visible=False)
+            model.change(fn=change_model, inputs=model, outputs=[checkpoint_realesrgan, checkpoints_diffbur])
         btn = gr.Button("Convert")
         video_output = gr.Video(label="Result",interactive=False, height=360)
         btn.click(enhancer, inputs=[video_path, scale], outputs=[video_output])

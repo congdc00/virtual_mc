@@ -59,6 +59,6 @@ volumes:
   API_DISK:
     driver_opts:
       type: none
-      device: ./disk/
+      device: ${PWD}/api/disk/
       o: bind
     name: API_DISK

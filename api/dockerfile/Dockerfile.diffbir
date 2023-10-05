@@ -1,0 +1,14 @@
+FROM nvidia/cuda:11.6.2-devel-ubuntu20.04
+
+RUN apt-get update -y
+RUN apt-get install git -y
+RUN apt install python3-pip -y
+RUN apt-get install -y libgl1-mesa-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install libglib2.0-0 -y
+
+RUN git clone https://github.com/XPixelGroup/DiffBIR.git
+RUN cd DiffBIR
+
+RUN pip install -r requirements.txt
+
+# thu nghiem cuda

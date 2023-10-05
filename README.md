@@ -10,6 +10,8 @@
 ```pip install -r requirements.txt```  
 ```python install.py```
 
+* Lưu ý: Nếu chạy install bị lỗi, hãy thử  ```docker logout``` và chạy lại 
+
 # Hướng dẫn
 ## Bước 1: Khởi động WebUI
 (from /visual_mc)  

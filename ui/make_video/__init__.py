@@ -1,6 +1,12 @@
 import gradio as gr
 from make_video.processing import wav2lip
 
+def change_model(choice):
+    if choice=="Wav2Lip":
+        return gr.update(visible=True, interactive=True), gr.update(visible=False)
+    else:
+        return gr.update(visible=False), gr.update(visible=True, interactive=True)
+
 def change_source(choice):
     if choice=="Upload":
         return gr.update(visible=True, interactive=True), gr.update(visible=True, interactive=True)
@@ -40,20 +46,23 @@ def init_ui():
         config.change(fn=change_config, inputs=config, outputs=[title_pad, x_top, y_top, x_bot, y_bot])
     
     with gr.Accordion("Advance setting", open=False):
-        model = gr.Dropdown(["Rudrabha", "Model 02"], value="Rudrabha", label="Model", info="Select the model to use", interactive=True)
-        checkpoint = gr.Dropdown(["Wav2Lip", "Wav2Lip+GAN", "Expert Discriminator", "Visual Quality Discriminator"], value="Wav2Lip", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
-
+        model = gr.Dropdown(["Wav2Lip", "Lip-sync"], value="Wav2Lip", label="Model", info="Select the model to use", interactive=True)
+        checkpoints_w2l = gr.Dropdown(["wav2lip", "wav2lip_gan", "lipsync_expert", "visual_quality_disc"], value="wav2lip", label="Checkpoint", info="Select the checkpoint to use", interactive=True)
+        checkpoints_diffbur = gr.Dropdown(["default"], value="default", label="Checkpoint", info="Select the checkpoint to use", interactive=True, visible=False)
+        model.change(fn=change_model, inputs=model, outputs=[checkpoints_w2l, checkpoints_diffbur])
+    
     type_source.change(fn=change_source, inputs=type_source, outputs=[video_input, audio_input])
     button = gr.Button("Generate")
     with gr.Row():
         result = gr.Video(label="AVideo Result",interactive=False, width=360, height=720)
         video_example = gr.Video(label="AiClip Example", width=360, height=720)
-    button.click(wav2lip, inputs=[checkpoint, video_input, audio_input, smooth, config, x_top, y_top, x_bot, y_bot, face_enhancer, frame_enhancer], outputs=[result])
+    button.click(wav2lip, inputs=[model, video_input, audio_input, smooth, config, x_top, y_top, x_bot, y_bot, face_enhancer, frame_enhancer], outputs=[result])
     with gr.Row():
-       
         gr.Examples(
-            [["Wav2Lip","./data/example/make_video/vid_01.mp4", "./data/example/make_video/audio_01.mp3", "./data/example/make_video/example_01.mp4"], ["Wav2Lip","./data/example/make_video/vid_02.mp4", "./data/example/make_video/audio_02.mp3", "./data/example/make_video/example_02.mp4"], ["Wav2Lip","./data/example/make_video/vid_03.mp4", "./data/example/make_video/audio_03.mp3", "./data/example/make_video/example_03.mp4"]],
-            [checkpoint, video_input, audio_input, video_example],
+            [["Wav2Lip", "wav2lip","./data/example/make_video/vid_01.mp4", "./data/example/make_video/audio_01.mp3", "./data/example/make_video/example_01.mp4"], 
+             ["Wav2Lip", "wav2lip","./data/example/make_video/vid_02.mp4", "./data/example/make_video/audio_02.mp3", "./data/example/make_video/example_02.mp4"], 
+             ["Wav2Lip", "wav2lip","./data/example/make_video/vid_03.mp4", "./data/example/make_video/audio_03.mp3", "./data/example/make_video/example_03.mp4"]],
+            [model, checkpoints_w2l, video_input, audio_input, video_example],
             result,
             wav2lip,
             cache_examples=False,
