@@ -1,7 +1,10 @@
 # virtual_mc
 
 # Yêu cầu
-- python>=3.11
+- GPU: Nvidia
+
+# Environment
+- python >= 3.11
 
 
 # Chuẩn bị dữ liệu (example)
